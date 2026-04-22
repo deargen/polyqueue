@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling", "version-pioneer"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "version-pioneer"
+
+[tool.hatch.build.hooks.version-pioneer]
+
+[tool.version-pioneer]
+versionscript = "src/polyqueue/_version.py"
+versionfile-sdist = "src/polyqueue/_version.py"
+versionfile-wheel = "polyqueue/_version.py"
+
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
+
+[project]
+name = "polyqueue"
+dynamic = ["version"]
+description = "Postgres-backed async job queue with pluggable broker backends (Redis, SQS, Azure Service Bus, PGMQ). Standalone package — configure via PolyqueueSettings or POLYQUEUE_* env vars."
+authors = [{ name = "Kiyoon Kim" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "pydantic>=2",
+  "pydantic-settings>=2",
+  "sqlalchemy[asyncio]>=2",
+  "asyncpg>=0.29",
+  "cyclopts>=3",
+]
+keywords = [
+  "job queue",
+  "task queue",
+  "asyncio",
+  "postgres",
+  "redis",
+  "sqs",
+  "azure service bus",
+]
+
+[project.optional-dependencies]
+redis = ["redis>=5"]
+sqs = ["boto3>=1.34"]
+azure-service-bus = ["azure-servicebus>=7"]
+all-queues = ["redis>=5", "boto3>=1.34", "azure-servicebus>=7"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24"]
+
+[project.urls]
+"Homepage" = "https://github.com/deargen/polyqueue"
+
+[project.scripts]
+polyqueue-worker = "polyqueue.worker.main:main_sync"
+polyqueue = "polyqueue.cli:app"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

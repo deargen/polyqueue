@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "polyqueue-demo",
+  "displayName": "Polyqueue Dashboard",
+  "description": "Live dashboard for Polyqueue queue state",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:server": "bun --hot src/server/index.ts",
+    "dev:ui": "vite",
+    "build": "vite build",
+    "start": "bun src/server/index.ts",
+    "preview": "vite preview",
+    "lint": "biome lint --no-errors-on-unmatched"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.477.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/bun": "latest",
+    "@types/node": "^22.13.8",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^6.0.0",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.1.6",
+    "vite": "^8.0.0"
+  }
+}
